@@ -1,3 +1,7 @@
+# original accent created by: IlinMihail
+# commit: https://github.com/Fogapod/pink/commit/ff46d56a4c258d9597a731c678dcb71d9fa43999
+
+
 import re
 import random
 

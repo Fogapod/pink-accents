@@ -1,3 +1,6 @@
+# original accent created by: PotatoAlienOf13
+# commit: https://github.com/Fogapod/pink/commit/0de155c932ac5bc1f1eefc329c831db9d569730c
+
 import random
 
 from typing import Generator
