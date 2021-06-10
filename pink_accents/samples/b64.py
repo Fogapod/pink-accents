@@ -5,5 +5,5 @@ from pink_accents import Accent
 
 
 class Base64(Accent):
-    def apply(self, text: str, *, severity: int = 1, **kwargs: Any) -> str:
+    def apply(self, text: str, **kwargs: Any) -> str:
         return b64encode(text.encode()).decode()
