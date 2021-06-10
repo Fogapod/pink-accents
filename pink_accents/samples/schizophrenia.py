@@ -91,7 +91,7 @@ topic_end = (
 
 
 def switch_topic(m: Match) -> str:
-    return f"{random.choice(topics)} {random.choice(topic_end)}"
+    return f"{m.original} {random.choice(topics)} {random.choice(topic_end)}"
 
 
 def repeat_word(m: Match) -> str:
