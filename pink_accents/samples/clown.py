@@ -16,6 +16,8 @@ def honk(m: Match) -> Optional[str]:
 
 # https://github.com/unitystation/unitystation/blob/cf3bfff6563f0b3d47752e19021ab145ae318736/UnityProject/Assets/Resources/ScriptableObjects/Speech/Clown.asset
 class Clown(Accent):
+    """LOUD == FUNNY HONK!"""
+
     PATTERNS = {
         r"[a-z]+": lambda m: m.original.upper() if m.severity > 1 else m.original,
         DISCORD_MESSAGE_END: honk,

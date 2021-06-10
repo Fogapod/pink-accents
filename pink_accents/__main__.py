@@ -19,7 +19,7 @@ Accent severity can optionally be passed in square brackets: OwO[10]
 def main() -> None:
     load_samples()
 
-    all_accents: Dict[str, Type[Accent]] = {a.name: a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name)}  # type: ignore
+    all_accents: Dict[str, Type[Accent]] = {a.name.lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name)}  # type: ignore
 
     if len(sys.argv) == 1:
         longest = max(len(a.name) for a in all_accents.values())  # type: ignore
@@ -44,7 +44,7 @@ def main() -> None:
             severity_int = int(severity)
 
         try:
-            accent_cls = all_accents[name]
+            accent_cls = all_accents[name.lower()]
         except KeyError:
             print(f"Warning: Skipping unknown accent: {arg}")
         else:

@@ -6,6 +6,8 @@ from ._shared import DISCORD_MESSAGE_END
 
 
 class Spurdo(Accent):
+    """Finnish accent."""
+
     PATTERNS = {
         r"xc": "gg",
         r"c": "g",

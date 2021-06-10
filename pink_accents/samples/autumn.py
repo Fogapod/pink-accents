@@ -22,6 +22,8 @@ def go_brrrr(m: Match) -> str:
 
 
 class Autumn(Accent):
+    """A mix of Texan/Australian accents, skips some letters."""
+
     WORDS = {
         r"increas[a-z]+": {
             lambda m: go_brrrr(m): 0.5,

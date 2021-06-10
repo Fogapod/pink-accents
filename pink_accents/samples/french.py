@@ -2,6 +2,8 @@ from pink_accents import Accent
 
 
 class French(Accent):
+    """Accent from France."""
+
     WORDS = {
         r"a": (
             "un",

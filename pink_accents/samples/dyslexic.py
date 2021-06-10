@@ -2,6 +2,8 @@ from pink_accents import Accent
 
 
 class Dyslexic(Accent):
+    """Swaps some words lettesr and."""
+
     PATTERNS = {
         # swap words with 5% * severity chance
         r"\b(\w+?)(\s+)(\w+?)\b": {

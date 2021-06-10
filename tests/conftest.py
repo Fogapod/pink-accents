@@ -10,6 +10,8 @@ from pink_accents.accent import Accent
 @pytest.fixture
 def test_accent(request) -> Generator[Accent, None, None]:
     class TestAccent(Accent):
+        """This is a test accent."""
+
         PATTERNS = {
             re.compile(r"foo", re.IGNORECASE): "bar",
         }

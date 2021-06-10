@@ -30,7 +30,7 @@ def test_metadata(test_accent: Accent) -> None:
     assert test_accent.name == "TestAccent"
     assert test_accent.full_name == "TestAccent"
     assert str(test_accent) == "TestAccent"
-    assert test_accent.description == ""
+    assert test_accent.description == "This is a test accent."
 
     test_accent.severity = 2
 

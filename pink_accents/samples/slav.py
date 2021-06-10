@@ -4,6 +4,8 @@ from ._shared import DISCORD_MESSAGE_END
 
 
 class Slav(Accent):
+    """Russian accent."""
+
     WORDS = {
         r"my": "our",
         r"friend": "comrade",

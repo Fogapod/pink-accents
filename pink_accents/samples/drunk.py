@@ -28,6 +28,8 @@ def hiccburp(m: Match) -> Optional[str]:
 
 # https://github.com/unitystation/unitystation/blob/cf3bfff6563f0b3d47752e19021ab145ae318736/UnityProject/Assets/Resources/ScriptableObjects/Speech/CustomMods/SlurredMod.cs
 class Drunk(Accent):
+    """Drunk accent."""
+
     PATTERNS = {
         r" +": hiccburp,
         r"[aeiouslnmr]": duplicate_char,

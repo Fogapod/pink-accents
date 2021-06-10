@@ -33,13 +33,8 @@ def e(m: Match) -> str:
 
 
 class E(Accent):
+    """Eeeeee eeeeeeeeeee eee eeee."""
+
     PATTERNS = {
         r"[a-z]": e,
     }
-
-    @classmethod
-    @property
-    def description(cls) -> str:
-        """Accent description for user."""
-
-        return "Eeeeee eeeeeeeeeee eee eeee."

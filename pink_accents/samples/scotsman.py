@@ -4,8 +4,10 @@ from ._shared import DISCORD_MESSAGE_END
 
 
 class Scotsman(Accent):
+    """Somewhat rude accent."""
+
     PATTERNS = {
         DISCORD_MESSAGE_END: {
-            " ye daft cunt": 0.5,
+            " ye daft cunt": lambda s: 0.4 + (0.6 * s / 9),
         }
     }

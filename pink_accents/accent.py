@@ -108,7 +108,7 @@ class Accent:
     def description(cls) -> str:
         """Accent description for user."""
 
-        return ""
+        return cls.__doc__ or ""
 
     def get_context(
         self,

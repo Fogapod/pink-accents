@@ -16,6 +16,8 @@ def bork(m: Match) -> Optional[str]:
 
 # https://github.com/unitystation/unitystation/blob/cf3bfff6563f0b3d47752e19021ab145ae318736/UnityProject/Assets/Resources/ScriptableObjects/Speech/Swedish.asset
 class Swedish(Accent):
+    """Swedish accent."""
+
     PATTERNS = {
         r"w": "v",
         r"j": "y",

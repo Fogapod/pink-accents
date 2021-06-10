@@ -18,6 +18,8 @@ def yeehaw(m: Match) -> Optional[str]:
 # https://lingojam.com/CowboyTalkTranslator
 # Is pretty bad, needs rework
 class Cowboy(Accent):
+    """Texan accent."""
+
     PATTERNS = {
         r"\bo\B": "aw",
         # "the" excluded

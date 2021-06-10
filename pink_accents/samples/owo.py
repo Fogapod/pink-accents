@@ -149,6 +149,8 @@ PATTERNS_10: PatternMapType = {
 
 
 class OwO(Accent):
+    """Use high severity values with caution."""
+
     def __init__(self, severity: int = 1) -> None:
         super().__init__(severity)
 
