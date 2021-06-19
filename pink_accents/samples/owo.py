@@ -139,6 +139,8 @@ PATTERNS: PatternMapType = {
 
 PATTERNS_9: PatternMapType = {
     r"\s+": lambda m: f" {random.choice(ALL_NYAS)} ",
+    DISCORD_MESSAGE_START: nya_message_start,
+    DISCORD_MESSAGE_END: nya_message_end,
 }
 
 PATTERNS_10: PatternMapType = {
