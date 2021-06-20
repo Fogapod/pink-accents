@@ -39,14 +39,14 @@ class Swedish(Accent):
         r"bo": "bjo",
     }
 
-    def __init__(self, severity: int = 1) -> None:
-        super().__init__(severity)
+    def register_patterns(self) -> None:
+        super().register_patterns()
 
-        bork_severity = severity
+        bork_severity = self.severity
 
-        if severity >= 6:
+        if self.severity >= 6:
             # resets at accent severity 6
-            bork_severity = severity - 5
+            bork_severity = self.severity - 5
 
             for k, v in SEVERE_PATTERNS.items():
                 self.register_replacement(Replacement(k, v))

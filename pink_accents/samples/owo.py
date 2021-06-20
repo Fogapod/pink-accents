@@ -153,15 +153,13 @@ PATTERNS_10: PatternMapType = {
 class OwO(Accent):
     """Use high severity values with caution."""
 
-    def __init__(self, severity: int = 1) -> None:
-        super().__init__(severity)
-
+    def register_patterns(self) -> None:
         patterns: PatternMapType
         flags = 0
 
-        if severity == 9:
+        if self.severity == 9:
             patterns = PATTERNS_9
-        elif severity > 9:
+        elif self.severity > 9:
             patterns = PATTERNS_10
             flags = re.UNICODE
         else:

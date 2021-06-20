@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 
-from typing import Any, Set, Type
+from typing import Any, Set, List, Type
 
 from .context import ReplacementContext
 from .replacement import Replacement
@@ -35,7 +35,7 @@ class Accent:
     advanced accents where most features are used.
     """
 
-    _replacements: Set[Replacement]
+    _replacements: List[Replacement]
 
     __registered_accents: Set[Type[Accent]] = set()
 
@@ -66,7 +66,12 @@ class Accent:
     def __init__(self, severity: int = 1) -> None:
         self.severity = severity
 
-        self._replacements = set()
+        self._replacements = []
+
+        self.register_patterns()
+
+    def register_patterns(self) -> None:
+        """Uses class variables like WORDS and PATTERNS. Overload to customize."""
 
         if (patterns := getattr(self, "WORDS", None)) is not None:
             for k, v in patterns.items():
@@ -85,7 +90,7 @@ class Accent:
 
         replacement.severity_hint(self.severity)
 
-        self._replacements.add(replacement)
+        self._replacements.append(replacement)
 
     @classmethod
     @property

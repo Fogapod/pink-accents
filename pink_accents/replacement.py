@@ -66,6 +66,9 @@ class StaticReplacementCB(ReplacementCB):
     def replace(self, match: Match) -> Optional[str]:
         return self.replacement
 
+    def __repr__(self) -> str:
+        return f"'{self.replacement}'"
+
 
 class SequenceReplacementCB(ReplacementCB):
     """
@@ -86,6 +89,9 @@ class SequenceReplacementCB(ReplacementCB):
             return selected
 
         return selected(match)
+
+    def __repr__(self) -> str:
+        return f"{self.replacement}"
 
 
 class DictReplacementCB(ReplacementCB):
