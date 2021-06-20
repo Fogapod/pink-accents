@@ -3,8 +3,6 @@ import random
 
 from typing import Optional
 
-from _shared import DISCORD_MESSAGE_END, DISCORD_MESSAGE_START
-
 from pink_accents import Match, Accent, Replacement
 from pink_accents.types import PatternMapType
 
@@ -126,27 +124,26 @@ PATTERNS: PatternMapType = {
     r"(?<!ow)o(?!wo)": {
         "owo": 0.2,
     },
-    # do not break discord mentions by avoiding @
-    r"(?<!@)!": lambda m: f" {random.choice(NYAS)}!",
+    r"!": lambda m: f" {random.choice(NYAS)}!",
     r"ni": "nyee",
     r"na": "nya",
     r"ne": "nye",
     r"no": "nyo",
     r"nu": "nyu",
-    DISCORD_MESSAGE_START: nya_message_start,
-    DISCORD_MESSAGE_END: nya_message_end,
+    r"\A": nya_message_start,
+    r"\Z": nya_message_end,
 }
 
 PATTERNS_9: PatternMapType = {
     r"\s+": lambda m: f" {random.choice(ALL_NYAS)} ",
-    DISCORD_MESSAGE_START: nya_message_start,
-    DISCORD_MESSAGE_END: nya_message_end,
+    r"\A": nya_message_start,
+    r"\Z": nya_message_end,
 }
 
 PATTERNS_10: PatternMapType = {
     # https://stackoverflow.com/a/6314634
     r"[^\W\d_]+": lambda m: random.choice(ALL_NYAS),
-    DISCORD_MESSAGE_END: lambda m: "!" * random.randrange(5, 10),
+    r"\Z": lambda m: "!" * random.randrange(5, 10),
 }
 
 

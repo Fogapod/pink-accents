@@ -2,8 +2,6 @@ import random
 
 from typing import Optional
 
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Accent, Replacement
 
 
@@ -52,6 +50,4 @@ class Swedish(Accent):
                 self.register_replacement(Replacement(k, v))
 
         if bork_severity > 1:
-            self.register_replacement(
-                Replacement(DISCORD_MESSAGE_END, lambda m: bork(bork_severity))
-            )
+            self.register_replacement(Replacement(r"\Z", lambda m: bork(bork_severity)))

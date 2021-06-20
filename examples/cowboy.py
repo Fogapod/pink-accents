@@ -2,8 +2,6 @@ import random
 
 from typing import Optional
 
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Match, Accent
 
 
@@ -31,7 +29,7 @@ class Cowboy(Accent):
         r"\B(?<!\bh)ey\b": "ay",
         r"(?<=g)r\B": "uh-r",
         r"(?<!h-)re": "hr",
-        DISCORD_MESSAGE_END: lambda m: f" {yeehaw(m)}",
+        r"\Z": lambda m: f" {yeehaw(m)}",
     }
     WORDS = {
         r"the": "thuh",

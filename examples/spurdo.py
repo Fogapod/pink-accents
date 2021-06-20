@@ -1,7 +1,5 @@
 import random
 
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Accent
 
 
@@ -17,7 +15,7 @@ class Spurdo(Accent):
         r"x": "gs",
         r"\Bng\b": "gn",
         r":?\)+": lambda m: f":{'D' * len(m.original) * (random.randint(1, 5) + m.severity)}",
-        DISCORD_MESSAGE_END: {
+        r"\Z": {
             lambda m: f" :{'D' * (random.randint(1, 5)+ m.severity)}": 0.5,
         },
     }

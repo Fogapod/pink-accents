@@ -1,5 +1,3 @@
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Accent
 
 
@@ -27,7 +25,7 @@ class Slav(Accent):
         r"th": ("z", "g"),
         r"\Bo?u": ("a", "oo"),
         r"w": "v",
-        DISCORD_MESSAGE_END: {
+        r"\Z": {
             " blyat": 0.5,
         },
     }

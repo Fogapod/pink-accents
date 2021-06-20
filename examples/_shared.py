@@ -1,2 +1,0 @@
-DISCORD_MESSAGE_START = r"\A(?!```)"
-DISCORD_MESSAGE_END = r"(?<!```)\Z"

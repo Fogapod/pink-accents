@@ -1,7 +1,5 @@
 import random
 
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Match, Accent
 
 
@@ -61,7 +59,7 @@ class Autumn(Accent):
         ),
         r"'?ve been": "da",
         r"disappear": "poof",
-        DISCORD_MESSAGE_END: {
+        r"\Z": {
             " ye daft cunt": 0.02,
         },
     }

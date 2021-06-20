@@ -2,8 +2,6 @@ import random
 
 from typing import Optional
 
-from _shared import DISCORD_MESSAGE_END
-
 from pink_accents import Match, Accent
 
 
@@ -20,5 +18,5 @@ class Clown(Accent):
 
     PATTERNS = {
         r"[a-z]+": lambda m: m.original.upper() if m.severity > 1 else m.original,
-        DISCORD_MESSAGE_END: honk,
+        r"\Z": honk,
     }
