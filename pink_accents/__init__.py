@@ -1,3 +1,4 @@
+import sys
 import importlib
 
 from pathlib import Path
@@ -15,29 +16,34 @@ __all__ = (
     "Accent",
     "ReplacementContext",
     "Replacement",
-    "load_samples",
+    "load_examples",
     "load_from",
 )
 
 
-def load_samples() -> None:
+def load_examples() -> None:
     """Load sample accents"""
 
-    load_from(f"{__package__}.samples")
+    # either installed package or local source folder
+    pkg_root = Path(__file__).parent.parent
+
+    load_from(pkg_root.joinpath("examples"))
 
 
-def load_from(path: str) -> None:
-    """Load accents from path. Path is joined by `.`."""
+def load_from(path: Path) -> None:
+    """Load accents from path."""
 
-    joined_path = Path(__file__).parent.parent.joinpath(
-        *[Path(p) for p in path.split(".")]
-    )
+    path_str = str(path)
+    sys.path.insert(0, path_str)
 
-    for child in joined_path.iterdir():
-        if child.suffix != ".py":
-            continue
+    try:
+        for child in path.iterdir():
+            if child.suffix != ".py":
+                continue
 
-        if child.name.startswith("_"):
-            continue
+            if child.name.startswith("_"):
+                continue
 
-        importlib.import_module(f"{path}.{child.stem}")
+            importlib.import_module(f"{child.stem}", package=path_str)
+    finally:
+        sys.path.remove(path_str)

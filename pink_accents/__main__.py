@@ -3,7 +3,7 @@ import sys
 
 from typing import Dict, Type
 
-from . import load_samples
+from . import load_examples
 from .accent import Accent
 
 # never actually used
@@ -17,7 +17,7 @@ Accent severity can optionally be passed in square brackets: OwO[10]
 
 
 def main() -> None:
-    load_samples()
+    load_examples()
 
     all_accents: Dict[str, Type[Accent]] = {a.name.lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name)}  # type: ignore
 

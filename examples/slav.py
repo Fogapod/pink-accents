@@ -1,6 +1,6 @@
-from pink_accents import Accent
+from _shared import DISCORD_MESSAGE_END
 
-from ._shared import DISCORD_MESSAGE_END
+from pink_accents import Accent
 
 
 class Slav(Accent):

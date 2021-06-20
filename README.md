@@ -7,4 +7,4 @@ In it's core it's basically a re.sub call.
 
 This was a part of PINK Discord bot originally: https://github.com/Fogapod/pink
 
-Examples of accents can be found in `pink_accents/samples`.
+Examples of accents can be found in `examples` folder.
