@@ -1,27 +1,57 @@
 import re
 import sys
+import pathlib
+import argparse
+import textwrap
 
 from typing import Dict, Type
 
-from . import load_examples
+from . import load_from, __version__, load_examples
 from .accent import Accent
 
-# never actually used
-USAGE = f"""python -m {__package__} [accent...]
+parser = argparse.ArgumentParser(
+    prog="pink_accents",
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description=textwrap.dedent(
+        """\
+        Interactive accent session.
 
-Starts interactive session if used without arguments.
-Lists accents if no accents provided.
-
-Accent severity can optionally be passed in square brackets: OwO[10]
-"""
+        Starts interactive session if used without arguments.
+        Lists accents if no accents provided.\
+        """
+    ),
+)
+parser.add_argument(
+    "accents",
+    metavar="accent",
+    nargs="*",
+    help="accent with severity",
+)
+parser.add_argument(
+    "-p",
+    "--accent-path",
+    type=pathlib.Path,
+    help="where to look for accents, defaults to local example folder",
+)
+parser.add_argument(
+    "-V",
+    "--version",
+    action="version",
+    version=f"%(prog)s {__version__}",
+)
 
 
 def main() -> None:
-    load_examples()
+    args = parser.parse_args()
+
+    if args.accent_path is None:
+        load_examples()
+    else:
+        load_from(args.accent_path)
 
     all_accents: Dict[str, Type[Accent]] = {a.name.lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name)}  # type: ignore
 
-    if len(sys.argv) == 1:
+    if not args.accents:
         longest = max(len(a.name) for a in all_accents.values())  # type: ignore
 
         for i in all_accents.values():
@@ -30,7 +60,7 @@ def main() -> None:
         sys.exit(0)
 
     accents = set()
-    for arg in sys.argv[1:]:
+    for arg in args.accents:
         if not (match := re.fullmatch(r"(\w+)(:?\[(\d+)\])?", arg)):
             print(f"Warning: Unable to recognize accent: {arg}")
 

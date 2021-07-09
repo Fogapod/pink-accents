@@ -8,7 +8,7 @@ from .accent import Accent
 from .context import ReplacementContext
 from .replacement import Replacement
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __author__ = "Fogapod"
 
 __all__ = (
@@ -44,6 +44,6 @@ def load_from(path: Path) -> None:
             if child.name.startswith("_"):
                 continue
 
-            importlib.import_module(f"{child.stem}", package=path_str)
+            importlib.import_module(child.stem, package=path_str)
     finally:
         sys.path.remove(path_str)

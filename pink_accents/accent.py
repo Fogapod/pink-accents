@@ -39,7 +39,7 @@ class Accent:
 
     __registered_accents: Set[Type[Accent]] = set()
 
-    def __init_subclass__(cls, register: bool = True):
+    def __init_subclass__(cls, *, register: bool = True):
         super().__init_subclass__()
 
         if register:
