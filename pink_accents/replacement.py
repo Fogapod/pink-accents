@@ -14,6 +14,7 @@ from .types import (
     ReplacementCallableType,
     ReplacementSequenceType,
 )
+from .errors import BadPattern, RegexError
 from .context import ReplacementContext
 
 __all__ = ("Replacement",)
@@ -34,7 +35,7 @@ class ReplacementCB:
             cls = DictReplacementCB
         else:
             # assume callable
-            # TODO: check
+            # TODO: check and raise BadHandler
             cls = CallableReplacementCB
 
         return cls(replacement, **kwargs)
@@ -209,8 +210,13 @@ class Replacement:
     ):
         if isinstance(pattern, re.Pattern):
             self.pattern = pattern
+        elif isinstance(pattern, str):
+            try:
+                self.pattern = re.compile(pattern, flags)
+            except re.error as e:
+                raise RegexError(f"unable to compile pattern {pattern}: {e}")
         else:
-            self.pattern = re.compile(pattern, flags)
+            raise BadPattern(f"invalid pattern type, expected str, got {type(pattern)}")
 
         self.callback = ReplacementCB.from_replacement(replacement, **kwargs)
         self.case_correction_fn = (

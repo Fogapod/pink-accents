@@ -1,3 +1,5 @@
+# TODO: other regex backends optionally (re2)
+
 import os
 import re
 
