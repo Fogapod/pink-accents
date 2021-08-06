@@ -8,7 +8,7 @@ from .accent import Accent
 from .context import ReplacementContext
 from .replacement import Replacement
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __author__ = "Fogapod"
 
 __all__ = (
