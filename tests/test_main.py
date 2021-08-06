@@ -2,6 +2,7 @@ import re
 
 import pytest
 
+from pink_accents import errors
 from pink_accents.match import Match
 from pink_accents.accent import Accent
 from pink_accents.context import ReplacementContext
@@ -109,3 +110,11 @@ def test_case_adjust_replace(test_accent) -> None:
     assert test_accent.apply("foo") == "bar"
     assert test_accent.apply("Foo") == "Bar"
     assert test_accent.apply("FOO") == "BAR"
+
+
+def test_configuration(test_accent_cls):
+    with pytest.raises(errors.BadSeverity):
+        test_accent_cls(-1)
+
+    with pytest.raises(errors.BadSeverity):
+        test_accent_cls("1")

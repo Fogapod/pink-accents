@@ -4,6 +4,7 @@ import logging
 
 from typing import Any, Set, List, Type
 
+from .errors import BadSeverity
 from .context import ReplacementContext
 from .replacement import Replacement
 
@@ -35,6 +36,8 @@ class Accent:
     advanced accents where most features are used.
     """
 
+    # TODO: lift type limitation to Any?
+    _severity: int
     _replacements: List[Replacement]
 
     __registered_accents: Set[Type[Accent]] = set()
@@ -98,6 +101,21 @@ class Accent:
         """Short accent name. Class name by default."""
 
         return cls.__name__
+
+    @property
+    def severity(self) -> int:
+        return self._severity
+
+    @severity.setter
+    def severity(self, value: int) -> None:
+        if not isinstance(value, int):
+            raise BadSeverity("Must be integer")
+
+        # NOTE: is this too strict? maybe. will remove if severity type gets lifted to Any
+        if value < 1:
+            raise BadSeverity("Must be greater than 0")
+
+        self._severity = value
 
     @property
     def full_name(self) -> str:
