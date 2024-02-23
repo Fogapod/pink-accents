@@ -19,7 +19,7 @@ jobs:
     - name: install mypy
       run: |
         pip install -U pip
-        pip install . mypy
+        pip install . mypy pytest
     - uses: pre-commit/action@v3.0.0
 
   test:
@@ -35,5 +35,5 @@ jobs:
     - name: install pytest
       run: |
         pip install -U pip
-        pip install . pytest
+        pip install . pytest pytest-cov
     - run: pytest
