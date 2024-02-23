@@ -1,6 +1,6 @@
 import re
 
-from typing import Dict, Union, Callable, Optional, Sequence
+from typing import Callable, Dict, Optional, Sequence, Union
 
 from .match import Match
 

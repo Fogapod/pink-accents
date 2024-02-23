@@ -17,13 +17,13 @@ class TestAccent(Accent):
         r"hi": "hello",
         r"sequence": ("seq_1", "seq_2"),
         r"sequence_callable": (
-            lambda m: "sequence_callable1",
-            lambda m: "sequence_callable2",
+            lambda _: "sequence_callable1",
+            lambda _: "sequence_callable2",
         ),
         r"map_ints": {"map_ints1": 1, "map_ints2": 2},
         r"map_floats": {"map_floats1": 0.25},
-        r"map_callable": {"map_callable1": lambda s: 42},
-        r"map_key_callable": {lambda m: "map_key_callable1": 1},
+        r"map_callable": {"map_callable1": lambda _: 42},
+        r"map_key_callable": {lambda _: "map_key_callable1": 1},
         r"callable": lambda m: f"callable-{m.severity}",
     }
 
@@ -32,10 +32,10 @@ Accent.clear_accents()
 
 
 @pytest.fixture
-def test_accent(request) -> Generator[Accent, None, None]:
+def test_accent(request: pytest.FixtureRequest) -> Generator[Accent, None, None]:
     yield TestAccent(request.param)
 
 
 @pytest.fixture
-def test_accent_cls(request) -> Generator[Accent, None, None]:
+def test_accent_cls(request: pytest.FixtureRequest) -> Generator[type[Accent], None, None]:  # noqa: ARG001
     yield TestAccent

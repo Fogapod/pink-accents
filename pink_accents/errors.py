@@ -2,9 +2,9 @@ __all__ = (
     "AccentError",
     "ConfigurationError",
     "RegexError",
-    "BadPattern",
-    "BadHandler",
-    "BadSeverity",
+    "BadPatternError",
+    "BadHandlerError",
+    "BadSeverityError",
 )
 
 
@@ -16,17 +16,17 @@ class ConfigurationError(AccentError):
     """Base exception for all configuration errors"""
 
 
-class BadPattern(ConfigurationError):
+class BadPatternError(ConfigurationError):
     """Something is wrong with replacement pattern"""
 
 
-class RegexError(BadPattern):
+class RegexError(BadPatternError):
     """Regex did not compile"""
 
 
-class BadHandler(ConfigurationError):
+class BadHandlerError(ConfigurationError):
     """Something is wrong with replacement handler"""
 
 
-class BadSeverity(ConfigurationError):
+class BadSeverityError(ConfigurationError):
     """Severity value check failed"""

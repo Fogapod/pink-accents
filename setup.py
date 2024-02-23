@@ -1,18 +1,18 @@
 # TODO: other regex backends optionally (re2)
 
-import os
 import re
 
+from pathlib import Path
 from typing import Sequence
 
 import setuptools
 
-with open("README.md", "r", encoding="utf-8") as f:
+with Path("README.md").open() as f:
     long_description = f.read()
 
-init_py = os.path.join(os.path.dirname(__file__), "pink_accents", "__init__.py")
+init_py = Path(__file__) / "pink_accents" / "__init__.py"
 
-with open(init_py) as f:
+with init_py.open() as f:
     cont = f.read()
 
     str_regex = r"['\"]([^'\"]*)['\"]"
@@ -33,7 +33,9 @@ classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: Implementation :: CPython",
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",
@@ -52,7 +54,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Fogapod/pink-accents",
     install_requires=install_requires,
-    python_requires=">=3.9",
+    python_requires=">=3.10",
     packages=setuptools.find_packages(),
     package_data={"pink_accents": ["py.typed"]},
     license="MIT",

@@ -1,6 +1,6 @@
 import random
 
-from pink_accents import Match, Accent
+from pink_accents import Accent, Match
 
 
 def go_brrrr(m: Match) -> str:

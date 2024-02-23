@@ -1,11 +1,11 @@
-import sys
 import importlib
+import sys
 
 from pathlib import Path
 
-from .match import Match
 from .accent import Accent
 from .context import ReplacementContext
+from .match import Match
 from .replacement import Replacement
 
 __version__ = "0.0.4"

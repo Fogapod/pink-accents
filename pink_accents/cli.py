@@ -1,12 +1,12 @@
+import argparse
+import pathlib
 import re
 import sys
-import pathlib
-import argparse
 import textwrap
 
 from typing import Dict, Type
 
-from . import load_from, __version__, load_examples
+from . import __version__, load_examples, load_from
 from .accent import Accent
 from .errors import ConfigurationError
 
@@ -52,13 +52,15 @@ def run_cli() -> None:
     else:
         load_from(args.accent_path)
 
-    all_accents: Dict[str, Type[Accent]] = {a.name.lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name)}  # type: ignore
+    all_accents: Dict[str, Type[Accent]] = {
+        a.name().lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name())
+    }
 
     if not args.accents:
         longest = max(len(a.name) for a in all_accents.values())  # type: ignore
 
         for i in all_accents.values():
-            print(f"{i.name:>{longest + 1}}: {i.description or 'Unknown'}")
+            print(f"{i.name():>{longest + 1}}: {i.description() or 'Unknown'}")
 
         sys.exit(0)
 
@@ -97,7 +99,7 @@ def run_cli() -> None:
 
     while True:
         try:
-            text = input("> ")
+            text = input("")
         except (EOFError, KeyboardInterrupt):
             sys.exit(0)
 

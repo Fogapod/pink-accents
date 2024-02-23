@@ -1,21 +1,21 @@
 from __future__ import annotations
 
-import re
-import random
 import itertools
+import random
+import re
 
-from typing import Any, Tuple, Union, Optional, Sequence
+from typing import Any, Optional, Sequence, Union
 
+from .context import ReplacementContext
+from .errors import BadPatternError, RegexError
 from .match import Match
 from .types import (
-    ReplacementType,
     DynamicWeightFnType,
-    ReplacementDictType,
     ReplacementCallableType,
+    ReplacementDictType,
     ReplacementSequenceType,
+    ReplacementType,
 )
-from .errors import BadPattern, RegexError
-from .context import ReplacementContext
 
 __all__ = ("Replacement",)
 
@@ -24,9 +24,7 @@ class ReplacementCB:
     __slots__ = ("replacement",)
 
     @classmethod
-    def from_replacement(
-        cls, replacement: ReplacementType, **kwargs: Any
-    ) -> ReplacementCB:
+    def from_replacement(cls, replacement: ReplacementType, **kwargs: Any) -> ReplacementCB:
         if isinstance(replacement, str):
             cls = StaticReplacementCB
         elif isinstance(replacement, Sequence):
@@ -40,7 +38,7 @@ class ReplacementCB:
 
         return cls(replacement, **kwargs)
 
-    def __init__(self, replacement: Any, **kwargs: Any):
+    def __init__(self, replacement: Any, **_: Any):
         self.replacement = replacement
 
     def severity_hint(self, severity: int) -> None:
@@ -64,7 +62,7 @@ class StaticReplacementCB(ReplacementCB):
 
     replacement: str
 
-    def replace(self, match: Match) -> Optional[str]:
+    def replace(self, _: Match) -> Optional[str]:
         return self.replacement
 
     def __repr__(self) -> str:
@@ -132,7 +130,7 @@ class DictReplacementCB(ReplacementCB):
 
         computed_weights = []
 
-        self.computable_weights: Sequence[Tuple[int, DynamicWeightFnType]] = []
+        self.computable_weights: Sequence[tuple[int, DynamicWeightFnType]] = []
 
         for i, v in enumerate(self.replacement.values()):
             if isinstance(v, (int, float)):
@@ -149,12 +147,11 @@ class DictReplacementCB(ReplacementCB):
 
         self.weights = computed_weights
 
-        if not self.computable_weights:
-            # inject None if total weight is < 1 for convenience
-            # example: {"a": 0.25, "b": 0.5} -> {"a": 0.25, "b": 0.5, None: 0.25}
-            if (weights_sum := sum(computed_weights)) < 1:
-                self.items.append(None)
-                computed_weights.append(1 - weights_sum)
+        # inject None if total weight is < 1 for convenience
+        # example: {"a": 0.25, "b": 0.5} -> {"a": 0.25, "b": 0.5, None: 0.25}
+        if not self.computable_weights and (weights_sum := sum(computed_weights)) < 1:
+            self.items.append(None)
+            computed_weights.append(1 - weights_sum)
 
         # is only useful when there are no computable weights
         # computed as early optimization
@@ -182,12 +179,7 @@ class CallableReplacementCB(ReplacementCB):
     replacement: ReplacementCallableType
 
     def replace(self, match: Match) -> Optional[str]:
-        # error: Invalid self argument "CallableReplacementCB" to attribute function "replacement" with type "Callable[[Match], Optional[str]]"
-        # error: Too many arguments
-        #
-        # i cannot understand this stupid mypy error. it goes away if i remove
-        # replacement annotation
-        return self.replacement(match)  # type: ignore
+        return self.replacement(match)
 
 
 class Replacement:
@@ -216,12 +208,10 @@ class Replacement:
             except re.error as e:
                 raise RegexError(f"unable to compile pattern {pattern}: {e}")
         else:
-            raise BadPattern(f"invalid pattern type, expected str, got {type(pattern)}")
+            raise BadPatternError(f"invalid pattern type, expected str, got {type(pattern)}")
 
         self.callback = ReplacementCB.from_replacement(replacement, **kwargs)
-        self.case_correction_fn = (
-            self._case_adjust if adjust_case else self._no_case_adjust
-        )
+        self.case_correction_fn = self._case_adjust if adjust_case else self._no_case_adjust
 
     def severity_hint(self, severity: int) -> None:
         """
@@ -230,9 +220,7 @@ class Replacement:
 
         self.callback.severity_hint(severity)
 
-    def apply(
-        self, text: str, *, severity: int, limit: int, context: ReplacementContext
-    ) -> str:
+    def apply(self, text: str, *, severity: int, limit: int, context: ReplacementContext[Any]) -> str:
         """Apply callback to all occurrences of pattern."""
 
         result_len = len(text)
@@ -242,11 +230,7 @@ class Replacement:
 
             original = match[0]
 
-            if (
-                replacement := self.callback.replace(
-                    Match(match=match, severity=severity, context=context)
-                )
-            ) is None:
+            if (replacement := self.callback.replace(Match(match=match, severity=severity, context=context))) is None:
                 return original
 
             result_len += len(replacement) - len(original)
@@ -258,7 +242,7 @@ class Replacement:
         return self.pattern.sub(repl, text)
 
     @staticmethod
-    def _no_case_adjust(original: str, replacement: str) -> str:
+    def _no_case_adjust(_original: str, replacement: str) -> str:
         return replacement
 
     @staticmethod

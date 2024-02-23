@@ -1,5 +1,7 @@
 import re
 
+from typing import Any
+
 from .context import ReplacementContext
 
 __all__ = ("Match",)
@@ -16,9 +18,7 @@ class Match:
         "context",
     )
 
-    def __init__(
-        self, *, match: re.Match[str], severity: int, context: ReplacementContext
-    ) -> None:
+    def __init__(self, *, match: re.Match[str], severity: int, context: ReplacementContext[Any]) -> None:
         self.match = match
         self.severity = severity
         self.context = context

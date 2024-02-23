@@ -1,12 +1,14 @@
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Generic, Optional, TypeVar
 
 if TYPE_CHECKING:
     from .accent import Accent
 
 __all__ = ("ReplacementContext",)
 
+T = TypeVar("T")
 
-class ReplacementContext:
+
+class ReplacementContext(Generic[T]):
     """
     Instance of this class is passed to every handler function as a part of Match.
 
@@ -28,7 +30,7 @@ class ReplacementContext:
 
     def __init__(self, id: Any, source: str, accent: "Accent"):
         self.id = id
-        self.state: Any = None
+        self.state: Optional[T] = None
         self.source = source
         self.accent = accent
 

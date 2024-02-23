@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import logging
 
-from typing import Any, Set, List, Type
+from typing import Any, ClassVar
 
-from .errors import BadSeverity
 from .context import ReplacementContext
+from .errors import BadSeverityError
 from .replacement import Replacement
 
 log = logging.getLogger(__name__)
@@ -38,9 +38,9 @@ class Accent:
 
     # TODO: lift type limitation to Any?
     _severity: int
-    _replacements: List[Replacement]
+    _replacements: list[Replacement]
 
-    __registered_accents: Set[Type[Accent]] = set()
+    __registered_accents: ClassVar[set[type[Accent]]] = set()
 
     def __init_subclass__(cls, *, register: bool = True):
         super().__init_subclass__()
@@ -50,12 +50,12 @@ class Accent:
 
             if cls in cls.__registered_accents:
                 # does this ever happen?
-                log.warn(f"{cls} is already present in accents")
+                log.warning("%s is already present in accents", cls)
 
             cls.__registered_accents.add(cls)
 
     @classmethod
-    def get_all_accents(cls) -> Set[Type[Accent]]:
+    def get_all_accents(cls) -> set[type[Accent]]:
         """Get all registered accent types."""
 
         return cls.__registered_accents
@@ -96,7 +96,6 @@ class Accent:
         self._replacements.append(replacement)
 
     @classmethod
-    @property
     def name(cls) -> str:
         """Short accent name. Class name by default."""
 
@@ -109,11 +108,11 @@ class Accent:
     @severity.setter
     def severity(self, value: int) -> None:
         if not isinstance(value, int):
-            raise BadSeverity("Must be integer")
+            raise BadSeverityError("Must be integer")
 
         # NOTE: is this too strict? maybe. will remove if severity type gets lifted to Any
         if value < 1:
-            raise BadSeverity("Must be greater than 0")
+            raise BadSeverityError("Must be greater than 0")
 
         self._severity = value
 
@@ -122,12 +121,11 @@ class Accent:
         """Accent name based on short name with additional information like severity."""
 
         if self.severity == 1:
-            return self.name
+            return self.name()
 
-        return f"{self.name}[{self.severity}]"
+        return f"{self.name()}[{self.severity}]"
 
     @classmethod
-    @property
     def description(cls) -> str:
         """Accent description for user."""
 
@@ -138,8 +136,8 @@ class Accent:
         *,
         text: str,
         context_id: Any,
-        cls: Type[ReplacementContext] = ReplacementContext,
-    ) -> ReplacementContext:
+        cls: type[ReplacementContext[Any]] = ReplacementContext[Any],
+    ) -> ReplacementContext[Any]:
         """Context factory."""
 
         return cls(

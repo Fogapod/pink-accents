@@ -1,9 +1,11 @@
-import re
+# ruff: noqa: RUF001
+
 import random
+import re
 
 from typing import Optional
 
-from pink_accents import Match, Accent, Replacement
+from pink_accents import Accent, Match, Replacement
 from pink_accents.types import PatternMapType
 
 NYAS = (
@@ -124,7 +126,7 @@ PATTERNS: PatternMapType = {
     r"(?<!ow)o(?!wo)": {
         "owo": 0.2,
     },
-    r"!": lambda m: f" {random.choice(NYAS)}!",
+    r"!": lambda _: f" {random.choice(NYAS)}!",
     r"ni": "nyee",
     r"na": "nya",
     r"ne": "nye",
@@ -135,15 +137,15 @@ PATTERNS: PatternMapType = {
 }
 
 PATTERNS_9: PatternMapType = {
-    r"\s+": lambda m: f" {random.choice(ALL_NYAS)} ",
+    r"\s+": lambda _: f" {random.choice(ALL_NYAS)} ",
     r"\A": nya_message_start,
     r"\Z": nya_message_end,
 }
 
 PATTERNS_10: PatternMapType = {
     # https://stackoverflow.com/a/6314634
-    r"[^\W\d_]+": lambda m: random.choice(ALL_NYAS),
-    r"\Z": lambda m: "!" * random.randrange(5, 10),
+    r"[^\W\d_]+": lambda _: random.choice(ALL_NYAS),
+    r"\Z": lambda _: "!" * random.randrange(5, 10),
 }
 
 

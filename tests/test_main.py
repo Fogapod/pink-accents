@@ -3,9 +3,9 @@ import re
 import pytest
 
 from pink_accents import errors
-from pink_accents.match import Match
 from pink_accents.accent import Accent
 from pink_accents.context import ReplacementContext
+from pink_accents.match import Match
 from pink_accents.replacement import Replacement
 
 
@@ -28,10 +28,10 @@ def test_match(test_accent: Accent) -> None:
 
 @pytest.mark.parametrize("test_accent", [1], indirect=True)
 def test_metadata(test_accent: Accent) -> None:
-    assert test_accent.name == "TestAccent"
+    assert test_accent.name() == "TestAccent"
     assert test_accent.full_name == "TestAccent"
     assert str(test_accent) == "TestAccent"
-    assert test_accent.description == "This is a test accent."
+    assert test_accent.description() == "This is a test accent."
 
     test_accent.severity = 2
 
@@ -92,7 +92,7 @@ def test_global_vars() -> None:
 
 
 @pytest.mark.parametrize("test_accent", [2], indirect=True)
-def test_replace(test_accent) -> None:
+def test_replace(test_accent: Accent) -> None:
     assert test_accent.apply("sequence") in ("seq_1", "seq_2")
     assert test_accent.apply("sequence_callable") in (
         "sequence_callable1",
@@ -106,15 +106,15 @@ def test_replace(test_accent) -> None:
 
 
 @pytest.mark.parametrize("test_accent", [1], indirect=True)
-def test_case_adjust_replace(test_accent) -> None:
+def test_case_adjust_replace(test_accent: Accent) -> None:
     assert test_accent.apply("foo") == "bar"
     assert test_accent.apply("Foo") == "Bar"
     assert test_accent.apply("FOO") == "BAR"
 
 
-def test_configuration(test_accent_cls):
-    with pytest.raises(errors.BadSeverity):
+def test_configuration(test_accent_cls: type[Accent]) -> None:
+    with pytest.raises(errors.BadSeverityError):
         test_accent_cls(-1)
 
-    with pytest.raises(errors.BadSeverity):
-        test_accent_cls("1")
+    with pytest.raises(errors.BadSeverityError):
+        test_accent_cls("1")  # type: ignore

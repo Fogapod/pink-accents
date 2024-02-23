@@ -50,4 +50,4 @@ class Swedish(Accent):
                 self.register_replacement(Replacement(k, v))
 
         if bork_severity > 1:
-            self.register_replacement(Replacement(r"\Z", lambda m: bork(bork_severity)))
+            self.register_replacement(Replacement(r"\Z", lambda _: bork(bork_severity)))
