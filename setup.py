@@ -10,7 +10,7 @@ import setuptools
 with Path("README.md").open() as f:
     long_description = f.read()
 
-init_py = Path(__file__) / "pink_accents" / "__init__.py"
+init_py = Path(__file__).parent / "pink_accents" / "__init__.py"
 
 with init_py.open() as f:
     cont = f.read()

@@ -67,6 +67,11 @@ no_implicit_optional = true
 no_implicit_reexport = true
 strict_equality = true
 
+exclude = [
+    # mypy goes into setuptools (?) directory for some reason even though it is gitignored
+    "build",
+]
+
 [[tool.mypy.overrides]]
 module = [
     "setuptools.*",
