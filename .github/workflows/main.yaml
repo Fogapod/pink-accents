@@ -19,7 +19,7 @@ jobs:
     - name: install mypy
       run: |
         pip install -U pip
-        pip install mypy -r requirements.txt
+        pip install mypy .
     - uses: pre-commit/action@v3.0.0
 
   test:
@@ -35,6 +35,6 @@ jobs:
     - name: install pytest
       run: |
         pip install -U pip
-        pip install -r requirements.txt
+        pip install .
         pip install pytest
     - run: pytest
