@@ -4,8 +4,6 @@ import re
 import sys
 import textwrap
 
-from typing import Dict, Type
-
 from . import __version__, load_examples, load_from
 from .accent import Accent
 from .errors import ConfigurationError
@@ -52,12 +50,12 @@ def run_cli() -> None:
     else:
         load_from(args.accent_path)
 
-    all_accents: Dict[str, Type[Accent]] = {
+    all_accents: dict[str, type[Accent]] = {
         a.name().lower(): a for a in sorted(Accent.get_all_accents(), key=lambda a: a.name())
     }
 
     if not args.accents:
-        longest = max(len(a.name) for a in all_accents.values())  # type: ignore
+        longest = max(len(a.name()) for a in all_accents.values())
 
         for i in all_accents.values():
             print(f"{i.name():>{longest + 1}}: {i.description() or 'Unknown'}")
