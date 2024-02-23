@@ -8,7 +8,7 @@ from .context import ReplacementContext
 from .match import Match
 from .replacement import Replacement
 
-__version__ = "0.0.4"
+__version__ = "0.1.0"
 __author__ = "Fogapod"
 
 __all__ = (
