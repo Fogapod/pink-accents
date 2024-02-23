@@ -1,3 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pink_accents"
+dynamic = ["version"]
+description = "Accent system based on string pattern matching"
+readme = "README.md"
+authors = [
+    { name = "Fogapod", email = "fogaprod@gmail.com" },
+]
+maintainers = [
+    { name = "Fogapod", email = "fogaprod@gmail.com" },
+]
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["accents", "regex", "pattern-replacements"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Topic :: Text Processing",
+    "Typing :: Typed",
+]
+urls = { repository = "https://github.com/Fogapod/pink-accents" }
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "ruff==0.2.2",
+    "mypy==1.8.0",
+    "pytest==8.0.1",
+    "pytest-cov==4.1.0",
+]
+
+[project.scripts]
+pink_accents = "pink_accents.__main__:main"
+
+[tool.hatch.version]
+path = "src/pink_accents/__init__.py"
+
 [tool.ruff]
 line-length = 121
 
@@ -82,5 +132,5 @@ module = [
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "-vv --cov pink_accents"
+addopts = "-vv --cov src"
 testpaths = ["tests"]

@@ -1,6 +1,7 @@
 import re
 
-from typing import Callable, Dict, Optional, Sequence, Union
+from collections.abc import Callable, Sequence
+from typing import Optional, Union
 
 from .match import Match
 
@@ -17,7 +18,7 @@ ReplacementSequenceType = Sequence[
     ]
 ]
 
-ReplacementDictType = Dict[
+ReplacementDictType = dict[
     Union[ReplacedType],
     Union[int, float, DynamicWeightFnType],
 ]
@@ -29,7 +30,7 @@ ReplacementType = Union[
     ReplacementDictType,
 ]
 
-PatternMapType = Dict[
+PatternMapType = dict[
     Union[re.Pattern[str], str],
     ReplacementType,
 ]

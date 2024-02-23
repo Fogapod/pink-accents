@@ -3,7 +3,7 @@
 
 import random
 
-from typing import Generator
+from collections.abc import Generator
 
 from pink_accents import Accent, Match, ReplacementContext
 

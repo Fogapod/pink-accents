@@ -4,7 +4,8 @@ import itertools
 import random
 import re
 
-from typing import Any, Optional, Sequence, Union
+from collections.abc import Sequence
+from typing import Any, Optional, Union
 
 from .context import ReplacementContext
 from .errors import BadPatternError, RegexError
@@ -133,7 +134,7 @@ class DictReplacementCB(ReplacementCB):
         self.computable_weights: Sequence[tuple[int, DynamicWeightFnType]] = []
 
         for i, v in enumerate(self.replacement.values()):
-            if isinstance(v, (int, float)):
+            if isinstance(v, int | float):
                 computed_weights.append(v)
             else:
                 # assume is a callable

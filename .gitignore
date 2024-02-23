@@ -3,12 +3,12 @@ __pycache__/
 
 # lint
 /.ruff_cache/
+/.pytest_cache/
+/.mypy_cache/
 
 # cov
 /htmlcov/
 /.coverage
 
 # package build artifacts
-/build/
 /dist/
-/pink_accents.egg-info/
