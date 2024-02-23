@@ -8,7 +8,7 @@ from .context import ReplacementContext
 from .match import Match
 from .replacement import Replacement
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = (
     "Match",
