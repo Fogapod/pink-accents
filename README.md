@@ -1,5 +1,7 @@
 # pink-accents
 
+[![image](https://img.shields.io/pypi/v/pink-accents.svg)](https://pypi.python.org/pypi/pink-accents)
+
 Accent system based on string pattern matching.
 
 This is a silly accent system inspired by Space Station 13 accents, based on popular stereotypes. There is no intent in offending anyone or any culture. Maybe this thing has other uses, we'll see.
