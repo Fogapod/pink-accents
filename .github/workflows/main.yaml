@@ -19,7 +19,7 @@ jobs:
     - name: install mypy
       run: |
         pip install uv --no-cache-dir --disable-pip-version-check
-        uv pip install --no-cache --system . mypy pytest
+        uv pip install --no-cache --system mypy pytest -e .
     - uses: pre-commit/action@v3.0.0
 
   test:
@@ -35,5 +35,5 @@ jobs:
     - name: install pytest
       run: |
         pip install uv --no-cache-dir --disable-pip-version-check
-        uv pip install --no-cache --system . pytest pytest-cov
+        uv pip install --no-cache --system pytest pytest-cov -e .
     - run: pytest
