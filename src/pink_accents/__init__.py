@@ -24,7 +24,7 @@ def load_examples() -> None:
     """Load sample accents"""
 
     # either installed package or local source folder
-    pkg_root = Path(__file__).parent.parent
+    pkg_root = Path(__file__).parent.parent.parent
 
     load_from(pkg_root.joinpath("examples"))
 
