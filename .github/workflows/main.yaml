@@ -14,12 +14,12 @@ jobs:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.11'
     # because pre-commit uses external mypy
     - name: install mypy
       run: |
-        pip install -U pip
-        pip install . mypy pytest
+        pip install uv --no-cache-dir --disable-pip-version-check
+        uv pip install --no-cache --system . mypy pytest
     - uses: pre-commit/action@v3.0.0
 
   test:
@@ -34,6 +34,6 @@ jobs:
         python-version: ${{ matrix.python }}
     - name: install pytest
       run: |
-        pip install -U pip
-        pip install . pytest pytest-cov
+        pip install uv --no-cache-dir --disable-pip-version-check
+        uv pip install --no-cache --system . pytest pytest-cov
     - run: pytest
